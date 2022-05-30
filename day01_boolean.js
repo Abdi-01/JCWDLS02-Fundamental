@@ -36,3 +36,18 @@ console.log("Logical OR :", false || false); // false
 console.log("Logical NOT :", !true); // false
 console.log("Logical NOT :", !false); // true
 console.log("Logical :", false || !false); // true
+
+// Data Truthly dan Falsy
+// Truthly : data yang memiliki nilai boolean true
+console.log(Boolean(2)); // true
+console.log(Boolean("ABCD")); // true
+console.log(Boolean(true)); // true
+console.log(Boolean(-2)); // true
+console.log(Boolean("false")); // true
+console.log(Boolean(" ")); // true
+
+// Falsy : data yang memiliki nilai false
+console.log(Boolean(false)); // false
+console.log(Boolean(0)); // false
+console.log(Boolean("")); // false
+console.log(Boolean(undefined)); // false
