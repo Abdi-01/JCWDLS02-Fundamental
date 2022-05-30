@@ -55,7 +55,20 @@ console.log("Math.pow()", Math.pow(4, 2)); // pangkat
 console.log("Math.sqrt()", Math.sqrt(4)); // angkar pangkat 2
 console.log("Math.cbrt()", Math.cbrt(8)); // angkar pangkat 3
 
-console.log("Math.min()",Math.min(-1, -50, 0, 4, 5, -100));
-console.log("Math.max()",Math.max(-1, -50, 0, 4, 5, -100));
+console.log("Math.min()", Math.min(-1, -50, 0, 4, 5, -100));
+console.log("Math.max()", Math.max(-1, -50, 0, 4, 5, -100));
 
 console.log("Math.random()", Math.random()); // membuat nilai random 0.xx s/d 1.0
+
+// Parsing data string ke number
+let angka = "123.456";
+
+console.log(typeof angka);
+console.log(parseInt(angka)); // 123
+console.log(parseFloat(angka)); // 123.456
+
+// Parsing data number ke string
+let uang = 250000;
+
+console.log(uang.toString()); // "250000"
+console.log(uang.toLocaleString("id")); // "250.000"
