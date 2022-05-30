@@ -27,8 +27,68 @@
 // Example case : memverifikasi pendaftaran SIM, syaratnya usia harus lebih dari sama dengan 17 tahun
 let nama = "Aldo Reinaldo";
 let email = "aldo@mail.com";
-let usia = 16;
+let usia = 9;
 
-if (usia >= 17){
+if (usia >= 17) {
     console.log(`Verifikasi usia ${nama} berhasil ✅, periksa email ${email} anda.`)
 }
+
+// 2. IF...ELSE STATEMENT
+/**
+ * Aturan Penulisan :
+ * if(condition){
+ *      // task
+ * }else{
+ *      // task
+ * }
+ * 
+*/
+
+if (usia >= 17) {
+    console.log(`Verifikasi usia ${nama} berhasil ✅, periksa email ${email} anda.`)
+} else {
+    console.log(`Verifikasi usia ${nama} gagal ❌`)
+}
+
+// 3. IF...ELSE IF...ELSE STATEMENT
+/**
+ * Aturan Penulisan :
+ * if(condition){
+ *      // task
+ * }else if(condition){
+ *      // task
+ * }else if(condition){
+ *      // task
+ * }else{
+ *      // task
+ * }
+ * 
+*/
+
+if (usia >= 17) {
+    console.log(`Verifikasi usia ${nama} berhasil ✅, periksa email ${email} anda.`)
+} else if (usia >= 10 && usia < 17) {
+    console.log(`Verifikasi usia ${nama} gagal ❌, belum cukup umur`)
+} else {
+    console.log(`Masih dibawah umur`)
+}
+
+// 4. SWITCH...CASE
+let profesi = "Polisi";
+switch (profesi) {
+    case "Coder":
+        // task
+        console.log("Saya membuat aplikasi");
+        break; // menghentikan proses
+    case "Polisi":
+        //task
+        console.log("Saya menertibkan lalu lintas");
+        break; // menghentikan proses
+    case "Dokter":
+        // task
+        console.log("Saya mengobati pasien");
+        break; // menghentikan proses
+    default:
+        console.log("Gak tau ngapain");
+        break; // menghentikan proses
+};
