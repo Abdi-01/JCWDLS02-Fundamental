@@ -1,0 +1,37 @@
+<script>
+    // prompt : popup untuk memberikan nilai input
+    // let input = prompt("Tuliskan nama anda !");
+
+    // alert : popup untuk menampilkan data
+    // alert(input);
+
+    // Aplikasi verifikasi usia untuk SIM
+    // - aturan usia minimal untuk SIM 17 tahun keatas
+    // Step by step algorithm :
+    // 1. input usia/data ==> prompt
+    // 2. pemeriksaan usia ==> COMPARISON -> CONDITIONAL STATEMENT
+    // 3. apabila usia sama dengan atau melebihi aturan maka akan terverifikasi -> alert
+    // 4. Jika tidak, maka tidak akan terverifikasi usianya -> alert
+
+
+
+    let inputNama = prompt("Masukkan Nama Anda :");
+    let inputEmail = prompt("Masukkan Email Anda :");
+    let inputUsia = prompt("Masukkan Usia Anda :");
+
+    // Validasi email
+    if (inputEmail.includes('@') && inputEmail.includes('.com')) {
+        // Verifikasi usia
+        if(parseInt(inputUsia)){
+            if (parseInt(inputUsia) >= 17) {
+                alert(`Verifikasi usia ${inputNama} berhasil ✅, periksa email ${inputEmail} anda.`);
+            } else {
+                alert(`Verifikasi usia ${inputNama} gagal ❌, anda belum cukup umur`);
+            }
+        }else{
+            alert(`Input usia salah`);
+        }
+    } else {
+        alert(`Input email anda salah ⚠️`);
+    };
+</script>
