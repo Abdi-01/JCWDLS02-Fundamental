@@ -1,0 +1,33 @@
+<script>
+
+alert("Mari berhitung 😁")
+
+// 1. Menambah fitur : mendeteksi input data.
+// Apabilah huruf, muncul alert input anda salah
+// Apabilah angka, muncul alert hasil perhitungan
+let konfirmasi=true;
+
+while(konfirmasi){
+    let angka_pertama = prompt('Masukkan angka pertama');
+    let angka_kedua = prompt('Masukkan angka kedua');
+
+    if (angka_pertama == "" || angka_kedua == "") {
+        alert("Ada form yang kosong ❌")
+    } else {
+        angka_pertama = parseInt(angka_pertama);
+        angka_kedua = parseInt(angka_kedua);
+        
+            let Pembagian = angka_pertama / angka_kedua, Perkalian = angka_pertama * angka_kedua;
+            alert(`Hasil perhitungan :
+            1. Penjumlahan ${angka_pertama} + ${angka_kedua} = ${angka_pertama + angka_kedua}
+            2. Pengurangan ${angka_pertama} - ${angka_kedua} = ${angka_pertama - angka_kedua}
+            3. Pembagian ${angka_pertama} / ${angka_kedua} = ${Pembagian}
+            4. Perkalian ${angka_pertama} * ${angka_kedua} = ${Perkalian}`)
+    }
+
+    konfirmasi = confirm("Mau lanjut berhitung lagi ?")
+    if(!konfirmasi){
+        konfirmasi=false
+    }
+}
+</script>
