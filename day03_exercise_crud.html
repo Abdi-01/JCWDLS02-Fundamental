@@ -1,0 +1,44 @@
+<script>
+    let database = ["Apel", "Jeruk"], konfirmasi = true;
+
+    while (konfirmasi) {
+        let menu = prompt(`Menu management data :
+        1. Lihat data
+        2. Tambah data
+        3. Hapus data
+        4. Edit data
+        `)
+
+        if (menu == "1") {
+            let listData = '';
+            for (let i = 0; i < database.length; i++) {
+                listData += `${i + 1}. ${database[i]}\n`;
+            }
+            alert(`Lihat data :\n${listData}`);
+        } else if (menu == "2") {
+            let newData = prompt('Masukkan data baru :');
+            database.push(newData);
+            // database[database.length]=newData;
+        } else if (menu == "3") {
+            let listData = '';
+            for (let i = 0; i < database.length; i++) {
+                listData += `${i + 1}. ${database[i]}\n`;
+            }
+            let selected = prompt(`Pilih yang akan dihapus:\n${listData}`);
+            database.splice(parseInt(selected) - 1, 1);
+        } else if (menu == "4") {
+            let listData = '';
+            for (let i = 0; i < database.length; i++) {
+                listData += `${i + 1}. ${database[i]}\n`;
+            }
+            let selected = prompt(`Pilih yang akan diedit:\n${listData}`);
+            let newData = prompt('Data baru :')
+            database[parseInt(selected) - 1] = newData;
+        } else {
+            alert('Menu tidak ditemukan ⚠️')
+        }
+
+        konfirmasi = confirm('Kembali ke menu utama ?');
+
+    }
+</script>
