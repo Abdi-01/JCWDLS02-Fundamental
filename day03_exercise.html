@@ -8,20 +8,52 @@
     // 4. Jika sama, berarti polindrom ---> if
     // 5. Jika berbeda maka bukan polindrom ---> else
 
-    let kata = prompt('Masukkan kata :');
-    console.log("kata before:", kata);
-    let newKata = kata.split('');
-    console.log("newKata before:", newKata);
-    newKata = newKata.reverse();
-    console.log("newKata after:", newKata);
-    newKata = newKata.join('');
+    // let kata = prompt('Masukkan kata :');
+    // console.log("kata before:", kata);
+    // let newKata = kata.split('');
+    // console.log("newKata before:", newKata);
+    // newKata = newKata.reverse();
+    // console.log("newKata after:", newKata);
+    // newKata = newKata.join('');
 
-    
-    console.log()
-    if (newKata.toLowerCase() == kata.toLowerCase()) {
-        alert(`Kata ${kata} adalah Polindrom ✅ --> ${newKata}`)
-    }else{
-        alert(`Kata ${kata} bukan Polindrom ❌ --> ${newKata}`)
+
+    // console.log()
+    // if (newKata.toLowerCase() == kata.toLowerCase()) {
+    //     alert(`Kata ${kata} adalah Polindrom ✅ --> ${newKata}`)
+    // }else{
+    //     alert(`Kata ${kata} bukan Polindrom ❌ --> ${newKata}`)
+    // }
+
+    // Menghitung huruf Vokal dan Konsonan
+    // Step :
+    // 1. Input kalimat
+    // 2. Memeriksa satu per satu huruf pada kalimat
+    // 3. Dicocokkan berdasarkan huruf abjad vokal
+    // 4. Jika termasuk huruf abjad vokal, disimpan di penampung huruf vokal
+    //      jika huruf yang dideteksi sudah ada maka tidak perlu dimasukkan kedalam penampung 
+    // 5. Jika tidak termasuk vokal dan bukan spasi, disimpan di penampung huruf konsonan
+    //      jika huruf yang dideteksi sudah ada maka tidak perlu dimasukkan kedalam penampung 
+
+    let kalimat = prompt('Masukkan kalimat :');
+    let newKata = kalimat.split('');
+    console.log('After split :', newKata)
+    let listVokal = 'aiueo';
+
+    let vokal = [], konsonan = [];
+
+    for (let i = 0; i < newKata.length; i++) {
+        // Memeriksa apakah newKata ke i berupa huruf vokal
+        if (listVokal.includes(newKata[i].toLowerCase())) {
+            if (!vokal.includes(newKata[i].toLowerCase())) {
+                vokal.push(newKata[i].toLowerCase());
+            }
+        } else if (newKata[i] != ' ') {
+            if (!konsonan.includes(newKata[i].toLowerCase())) {
+                konsonan.push(newKata[i].toLowerCase());
+            }
+        }
     }
+
+    alert(`Kalimat = ${kalimat}\nHuruf Vokal = ${vokal.sort().join('')}\nHuruf Konsonan = ${konsonan.sort().join('')}`)
 
 </script>
