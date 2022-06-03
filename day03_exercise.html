@@ -1,0 +1,27 @@
+<script>
+    // Polindrom
+
+    // Step Algorithm :
+    // 1. Input kata ---> propmt
+    // 2. Membalikkan urutan kata dari input ---> .split ---> .reverse ---> .join('')
+    // 3. Kita bandingkan kata asal dengan kata yang baru ---> == ---> toLowerCase
+    // 4. Jika sama, berarti polindrom ---> if
+    // 5. Jika berbeda maka bukan polindrom ---> else
+
+    let kata = prompt('Masukkan kata :');
+    console.log("kata before:", kata);
+    let newKata = kata.split('');
+    console.log("newKata before:", newKata);
+    newKata = newKata.reverse();
+    console.log("newKata after:", newKata);
+    newKata = newKata.join('');
+
+    
+    console.log()
+    if (newKata.toLowerCase() == kata.toLowerCase()) {
+        alert(`Kata ${kata} adalah Polindrom ✅ --> ${newKata}`)
+    }else{
+        alert(`Kata ${kata} bukan Polindrom ❌ --> ${newKata}`)
+    }
+
+</script>

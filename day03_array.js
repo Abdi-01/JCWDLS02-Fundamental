@@ -85,3 +85,29 @@ console.log(motor.join(' / ')); // Ducati / Honda / Yamaha
 let greeting = 'Hello';
 console.log('Before :', greeting);
 console.log('After :', greeting.split());
+
+// ⏺️ namaVariableArray.includes("data") : memeriksa ada atau tidak data pada array
+console.log(motor.includes('Honda')); // true
+
+// ⏺️ namaVariableArray.indexOf("data") : mencari alamat index dari suatu data
+console.log(motor.indexOf('Ducati')); // 2
+console.log(motor.indexOf('Suzuki')); // -1
+
+
+// ⏺️ namaVariable.splice(indexAwal, jumlahDataYangDihapus, dataBaru) : menghapus data array pada index tertentu
+// Fungsi 1️⃣ : menghapus data array pada index tertentu
+let mobil = ['Astra', 'BMW', 'Lexus', 'Wuling'];
+// console.log('Before :', mobil);
+// mobil.splice(2, 1);
+// console.log('After :', mobil);
+
+// Fungsi 2️⃣ : mengganti data
+// console.log('Before :', mobil);
+// // mobil[0] = 'Toyota'; // reassign pada data array berdasarkan indexnya
+// mobil.splice(0, 1, 'Daihatsu');
+// console.log('After :', mobil);
+
+// Fungsi 3️⃣ : menyisipkan data baru
+console.log('Before :', mobil);
+mobil.splice(1, 0, "Toyota", "Daihatsu", "Isuzu");
+console.log('After :', mobil);
