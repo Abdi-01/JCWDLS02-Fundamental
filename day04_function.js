@@ -82,3 +82,37 @@ const perkalian = (nilaiA, nilaiB) => {
 }
 
 console.log("Perkalian", perkalian(5, 6));
+
+
+// FUNCTION didalam FUNCTION
+
+// let hasil = [
+//     [2, 3],
+//     [4, 5]
+// ]
+
+// const ganjilGenap = (callback, data) => {
+//     let output = [];
+//     for (let i = 0; i < data.length; i++) {
+//         let nilai = callback(data[i][0], data[i][1]);
+//         if (nilai % 2 == 0) {
+//             output.push('Genap');
+//         } else {
+//             output.push('Ganjil');
+//         }
+//     }
+
+//     return output
+// }
+
+// console.log(ganjilGenap(function (nilaiA, nilaiB) {
+//     let hasil = nilaiA + nilaiB;
+//     return hasil;
+// }));
+
+let dataBarang = [
+    ["Baju", 15, 7500],
+    ["Celana", 10, 3500]
+];
+
+console.log(dataBarang[1][0], dataBarang[1][1], dataBarang[1][2]);
