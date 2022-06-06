@@ -29,30 +29,40 @@
         } else if (mainMenu == 2) {
             // Pilih barang yg dibeli
             let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`)) - 1;
+            while (true) {
+                let qty = parseInt(prompt(`Beli ${produk[beli][0]} berapa ?`));
 
-            // Input qty yg dibeli
-            let qty = parseInt(prompt(`Beli ${produk[beli][0]} berapa ?`));
+                if (qty <= produk[beli][1]) {
+                    let totalBeli = qty * produk[beli][2];
+                    let pembayaran = parseInt(prompt(`Total belanja Rp. ${totalBeli.toLocaleString('id')}
+        Masukkan uang anda :`));
+                    let kembalian = pembayaran - totalBeli;
 
-            if (qty <= produk[beli][1]) {
-                let totalBeli = qty * produk[beli][2];
-                let pembayaran = parseInt(prompt(`Total belanja Rp. ${totalBeli.toLocaleString('id')}
-                Masukkan uang anda :`));
-                let kembalian = pembayaran - totalBeli;
+                    if (kembalian < 0) {
+                        alert('Uang tidak cukup, pembelian gagal ❌');
+                        break;
+                    } else {
+                        alert(`Pembelian berhasil ✅
+            Kembalian anda adalah Rp. ${kembalian.toLocaleString('id')}`);
 
-                if (kembalian < 0) {
-                    alert('Uang tidak cukup, pembelian gagal ❌');
-                } else {
-                    alert(`Pembelian berhasil ✅
-                    Kembalian anda adalah Rp. ${kembalian.toLocaleString('id')}`);
-
-                    // Pengurangan stock
-                    produk[beli][1] -= qty;
-                    // Jika barang habis, maka langsung kita hapus
-                    if (produk[beli][1] == 0) {
-                        produk.splice(beli, 1)
+                        // Pengurangan stock
+                        produk[beli][1] -= qty;
+                        // Jika barang habis, maka langsung kita hapus
+                        if (produk[beli][1] == 0) {
+                            produk.splice(beli, 1)
+                        }
+                        break;
                     }
                 }
+                else {
+                    let transaksi = confirm('Stock tidak cukup, mau input ulang ?')
+                    if (!transaksi) {
+                        break;
+                    }
+                }
+
             }
+            // Input qty yg dibeli
 
         } else if (mainMenu == 3) {
             alert(`Produk tersedia :\n${printData()}`);
