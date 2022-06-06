@@ -29,11 +29,8 @@ console.table(data)
 // })
 // console.table(list)
 
-// data.forEach(function (value, index) {
-//     list += `${index}. ${value[0]}\n`
-// })
-
-let list = '';ki
+// Menduplikasi cara kerja forEach
+let list = '';
 const duplicateForEach = (dataArray, callbackFn) => {
     for (let index = 0; index < dataArray.length; index++) {
         callbackFn(dataArray[index], index);
@@ -44,4 +41,20 @@ duplicateForEach(data, function (value, index) {
     list += `${index + 1}. ${value[0]}\n`;
 });
 
-console.log(list);
+// console.log(list);
+
+// Menduplikasi cara kerja map
+const duplicateMap = (data, callbackFn) => {
+    let newArray = [];
+    for (let index = 0; index < data.length; index++) {
+        newArray.push(callbackFn(data[index], index))
+    }
+    return newArray;
+}
+
+let newData = duplicateMap(data, (val, idx) => {
+    return `${idx + 1}. ${val}`
+});
+
+console.table(newData);
+console.log(newData.join('\n'))
