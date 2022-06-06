@@ -5,12 +5,19 @@
     ]
 
     const printData = () => {
-        let list = '';
-        for (let i = 0; i < produk.length; i++) {
-            list += `${i + 1}. ${produk[i][0]}, Stok = ${produk[i][1]}, Rp.  ${produk[i][2].toLocaleString('id')}\n`;
-        }
+        // let list = '';
+        // for (let i = 0; i < produk.length; i++) {
+        //     list += `${i + 1}. ${produk[i][0]}, Stok = ${produk[i][1]}, Rp.  ${produk[i][2].toLocaleString('id')}\n`;
+        // }
 
-        return list;
+        // produk.forEach((val, idx) => {
+        //     list += `${i + 1}. ${val[0]}, Stok = ${val[1]}, Rp. ${val[2].toLocaleString('id')}\n`;
+        // })
+        
+        let list = produk.map((val,idx)=>{
+                return `${i + 1}. ${val[0]}, Stok = ${val[1]}, Rp. ${val[2].toLocaleString('id')}`;
+        })
+        return list.join('\n');
     }
 
     while (true) {
@@ -28,7 +35,7 @@
             alert(`Produk baru sudah terdaftar ✅\n${printData()}`);
         } else if (mainMenu == 2) {
             // Pilih barang yg dibeli
-            let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`))-1;
+            let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`)) - 1;
             while (true) {
                 let qty = parseInt(prompt(`Beli ${produk[beli][0]} berapa ?`));
 
@@ -46,7 +53,7 @@
             Kembalian anda adalah Rp. ${kembalian.toLocaleString('id')}`);
 
                         // Pengurangan stock
-                        produk[beli][1] = produk[beli][1]-qty;
+                        produk[beli][1] = produk[beli][1] - qty;
                         // Jika barang habis, maka langsung kita hapus
                         if (produk[beli][1] == 0) {
                             produk.splice(beli, 1)
