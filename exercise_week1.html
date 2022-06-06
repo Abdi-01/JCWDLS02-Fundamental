@@ -28,7 +28,7 @@
             alert(`Produk baru sudah terdaftar ✅\n${printData()}`);
         } else if (mainMenu == 2) {
             // Pilih barang yg dibeli
-            let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`)) - 1;
+            let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`))-1;
             while (true) {
                 let qty = parseInt(prompt(`Beli ${produk[beli][0]} berapa ?`));
 
@@ -46,7 +46,7 @@
             Kembalian anda adalah Rp. ${kembalian.toLocaleString('id')}`);
 
                         // Pengurangan stock
-                        produk[beli][1] -= qty;
+                        produk[beli][1] = produk[beli][1]-qty;
                         // Jika barang habis, maka langsung kita hapus
                         if (produk[beli][1] == 0) {
                             produk.splice(beli, 1)
