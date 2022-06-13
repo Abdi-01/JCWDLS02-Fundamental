@@ -1,20 +1,25 @@
 <script>
-    let produk = [
-        {
-            name:'Baju',
-            stock:12,
-            price:35000,
-        },
-        {
-            name:'Celana',
-            stock:10,
-            price:70000,
+    class Produk {
+        constructor(_name, _stock, _price) {
+            this.name = _name;
+            this.stock = _stock;
+            this.price = _price;
         }
+
+        getInfo = () => {
+            return `${this.name}, Stok = ${this.stock}, Rp. ${this.price.toLocaleString('id')}`;
+        }
+    }
+
+
+    let produk = [
+        new Produk('Baju', 12, 35000),
+        new Produk('Celana', 10, 70000)
     ]
 
     const printData = () => {
-        let list = produk.map((val,idx)=>{
-                return `${idx + 1}. ${val.name}, Stok = ${val.stock}, Rp. ${val.price.toLocaleString('id')}`;
+        let list = produk.map((val, idx) => {
+            return `${idx + 1}. ${val.getInfo()}`;
         })
         return list.join('\n');
     }
@@ -30,11 +35,7 @@
             let stock = parseInt(prompt('Masukkan stok produk :'));
             let price = parseInt(prompt('Masukkan harga produk :'));
 
-            produk.push({
-                name,
-                stock,
-                price
-            });
+            produk.push(new Produk(name, stock, price));
             alert(`Produk baru sudah terdaftar ✅\n${printData()}`);
         } else if (mainMenu == 2) {
             // Pilih barang yg dibeli
@@ -87,3 +88,4 @@
         }
 
     }
+</script>
