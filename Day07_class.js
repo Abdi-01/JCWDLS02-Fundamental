@@ -57,6 +57,13 @@ class Pekerjaan extends Manusia {
     }
 }
 
+class Jabatan extends Pekerjaan {
+    constructor(_name, _born, _gender, _job, _salary, _jabatan) {
+        super(_name, _born, _gender, _job, _salary);
+        this.jabatan = _jabatan;
+    }
+}
+
 let dataEmploye = [
     new Pekerjaan("Arnold", "08-07-1992", "Male", "Chef", 25000000)
 ];

@@ -11,14 +11,26 @@
         }
     }
 
+    class FnB extends Produk {
+        constructor(_name, _stock, _price, _type, _expDate) {
+            super(_name, _stock, _price);
+            this.type = _type;
+            this.expDate = _expDate;
+        }
 
-    let produk = [
+        getInfo = () => {
+            return `${this.name}, Stok = ${this.stock}, Rp. ${this.price.toLocaleString('id')}, Expired : ${this.expDate}`;
+        }
+    }
+
+
+    let dbProduct = [
         new Produk('Baju', 12, 35000),
         new Produk('Celana', 10, 70000)
     ]
 
     const printData = () => {
-        let list = produk.map((val, idx) => {
+        let list = dbProduct.map((val, idx) => {
             return `${idx + 1}. ${val.getInfo()}`;
         })
         return list.join('\n');
@@ -31,20 +43,27 @@
         3. Cek Stok`)
 
         if (mainMenu == 1) {
+            let category = prompt('Pilih kategori produk :\n1. General\n2. FnB')
             let name = prompt('Masukkan nama produk :');
             let stock = parseInt(prompt('Masukkan stok produk :'));
             let price = parseInt(prompt('Masukkan harga produk :'));
+            if (category == 1) {
+                dbProduct.push(new Produk(name, stock, price));
+            } else if (category == 2) {
+                let type = prompt("Type produk :")
+                let expDate = prompt("Expired date produk :")
+                dbProduct.push(new FnB(name, stock, price, type, expDate));
+            }
 
-            produk.push(new Produk(name, stock, price));
             alert(`Produk baru sudah terdaftar ✅\n${printData()}`);
         } else if (mainMenu == 2) {
             // Pilih barang yg dibeli
             let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`)) - 1;
             while (true) {
-                let qty = parseInt(prompt(`Beli ${produk[beli].name} berapa ?`));
+                let qty = parseInt(prompt(`Beli ${dbProduct[beli].name} berapa ?`));
 
-                if (qty <= produk[beli].stock) {
-                    let totalBeli = qty * produk[beli].price;
+                if (qty <= dbProduct[beli].stock) {
+                    let totalBeli = qty * dbProduct[beli].price;
                     let pembayaran = parseInt(prompt(`Total belanja Rp. ${totalBeli.toLocaleString('id')}
         Masukkan uang anda :`));
                     let kembalian = pembayaran - totalBeli;
@@ -57,10 +76,10 @@
             Kembalian anda adalah Rp. ${kembalian.toLocaleString('id')}`);
 
                         // Pengurangan stock
-                        produk[beli].stock -= qty;
+                        dbProduct[beli].stock -= qty;
                         // Jika barang habis, maka langsung kita hapus
-                        if (produk[beli].stock == 0) {
-                            produk.splice(beli, 1)
+                        if (dbProduct[beli].stock == 0) {
+                            dbProduct.splice(beli, 1)
                         }
                         break;
                     }
