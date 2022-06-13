@@ -41,7 +41,24 @@ dataPenduduk.push(new Manusia("Reva", "11-11-1996", "P"));
 
 console.log(dataPenduduk);
 let list = dataPenduduk.map((val, idx) => {
-    return `${idx+1}. ${val.getIntroduce()}`
+    return `${idx + 1}. ${val.getIntroduce()}`
 })
 
 console.log(list.join('\n'));
+
+// INHERITANCE ===> pewarisan data dari class utama agar dapat digunakan oleh class turunan
+// Class Turunan
+class Pekerjaan extends Manusia {
+    constructor(_name, _born, _gender, _job, _salary) {
+        super(_name, _born, _gender);
+        this.job = _job;
+        this.salary = _salary;
+        this.age = this.getAge();
+    }
+}
+
+let dataEmploye = [
+    new Pekerjaan("Arnold", "08-07-1992", "Male", "Chef", 25000000)
+];
+
+console.log(dataEmploye);
