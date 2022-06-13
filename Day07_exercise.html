@@ -1,0 +1,89 @@
+<script>
+    let produk = [
+        {
+            name:'Baju',
+            stock:12,
+            price:35000,
+        },
+        {
+            name:'Celana',
+            stock:10,
+            price:70000,
+        }
+    ]
+
+    const printData = () => {
+        let list = produk.map((val,idx)=>{
+                return `${idx + 1}. ${val.name}, Stok = ${val.stock}, Rp. ${val.price.toLocaleString('id')}`;
+        })
+        return list.join('\n');
+    }
+
+    while (true) {
+        let mainMenu = prompt(`Selamat datang di Toko Kelontong :
+        1. Tambah Produk
+        2. Beli Produk
+        3. Cek Stok`)
+
+        if (mainMenu == 1) {
+            let name = prompt('Masukkan nama produk :');
+            let stock = parseInt(prompt('Masukkan stok produk :'));
+            let price = parseInt(prompt('Masukkan harga produk :'));
+
+            produk.push({
+                name,
+                stock,
+                price
+            });
+            alert(`Produk baru sudah terdaftar ✅\n${printData()}`);
+        } else if (mainMenu == 2) {
+            // Pilih barang yg dibeli
+            let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`)) - 1;
+            while (true) {
+                let qty = parseInt(prompt(`Beli ${produk[beli].name} berapa ?`));
+
+                if (qty <= produk[beli].stock) {
+                    let totalBeli = qty * produk[beli].price;
+                    let pembayaran = parseInt(prompt(`Total belanja Rp. ${totalBeli.toLocaleString('id')}
+        Masukkan uang anda :`));
+                    let kembalian = pembayaran - totalBeli;
+
+                    if (kembalian < 0) {
+                        alert('Uang tidak cukup, pembelian gagal ❌');
+                        break;
+                    } else {
+                        alert(`Pembelian berhasil ✅
+            Kembalian anda adalah Rp. ${kembalian.toLocaleString('id')}`);
+
+                        // Pengurangan stock
+                        produk[beli].stock -= qty;
+                        // Jika barang habis, maka langsung kita hapus
+                        if (produk[beli].stock == 0) {
+                            produk.splice(beli, 1)
+                        }
+                        break;
+                    }
+                }
+                else {
+                    let transaksi = confirm('Stock tidak cukup, mau input ulang ?')
+                    if (!transaksi) {
+                        break;
+                    }
+                }
+
+            }
+            // Input qty yg dibeli
+
+        } else if (mainMenu == 3) {
+            alert(`Produk tersedia :\n${printData()}`);
+        } else {
+            alert('Pilihan anda tidak sesuai ❌')
+        }
+
+        let logOut = confirm(`Ke menu utama ?`)
+        if (logOut == false) {
+            alert(`Terima kasih sudah berkunjung 😁`);
+            break;
+        }
+
+    }
