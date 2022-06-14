@@ -152,6 +152,39 @@ console.log('Output fungsiFilter :', fungsiFilter(15));
     }]
  * */
 
+const fungsiDinamicFilter = (objFilter, data = dataProduct) => {
+    // 1. Menyiapkan penampung data hasil filter ==> variable penampung ==> array
+    let result = [];
+    // 2. Mengakses data yang disimpan pada variable dataProduct satu per satu ==> looping
+    data.forEach((val, idx) => {
+        // 3. Mengetahui properti dari data yang ingin difilter
+        let dataKeys = Object.keys(val); // []
+        let filterKey = Object.keys(objFilter); // []
+        // 4. Mencocokkan data dari dataProduct dengan objFilter ==> semua data harus true
+        let filterCheck = [];
+        dataKeys.forEach((value) => {
+            // mencocokkan satu per satu property dari dataKeys dengan filterKey
+            filterKey.forEach((valueFilter) => {
+                // Memastikan property sama
+                if (value == valueFilter) {
+                    // Memastikan data dari properti tersebut sama
+                    if (val[value] == objFilter[valueFilter]) {
+                        filterCheck.push(true);
+                    } else {
+                        filterCheck.push(false);
+                    }
+                }
+            })
+        })
 
-console.log('Output fungsiDinamicFilter==>', fungsiDinamicFilter({ brand: 'Volcom', id:15 }, dataProduct));
-// console.log('Output fungsiDinamicFilter==>', fungsiDinamicFilter({ mobil: 'Ferrari' }, dataMobil));
+        // 5. Jika semuanya true maka akan dimasukkan ke penampung data filter
+        if (!filterCheck.includes(false)) {
+            result.push(val)
+        }
+    })
+
+    return result;
+}
+
+
+console.log('Output fungsiDinamicFilter==>', fungsiDinamicFilter({ price: 325000 }));
