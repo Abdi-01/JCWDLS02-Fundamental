@@ -58,11 +58,11 @@ const fungsiDinamicFilter = (objFilter, data = dataProduct) => {
         // 3. Mengetahui properti dari data yang ingin difilter
         let dataKeys = Object.keys(val); // []
         let filterKey = Object.keys(objFilter); // []
-        let filterCheck = [];
+        let filterCheck = []; // untuk mencatat data yang dicocokkan itu sama(true) atau tidak(false)
         dataKeys.forEach((value) => {
             // Mememriksa, apakah properti dari dataKey ada didalam filterKey
             if(filterKey.includes(value)){
-                // jika, ada, dicocokkan datanya
+                // jika ada, dicocokkan datanya
                 if (val[value] == objFilter[value]) {
                     filterCheck.push(true);
                 } else {
@@ -70,6 +70,8 @@ const fungsiDinamicFilter = (objFilter, data = dataProduct) => {
                 }
             }
         })
+        // Apakah hasil pencocokan data filter ada yang bernilai false
+        // Jika tidak ada, maka data akan kita masukkan kedalam variable result hasil filter
         if (!filterCheck.includes(false)) {
             result.push(val)
         }
