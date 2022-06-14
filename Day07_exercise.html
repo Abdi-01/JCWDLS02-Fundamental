@@ -26,11 +26,12 @@
 
     let dbProduct = [
         new Produk('Baju', 12, 35000),
-        new Produk('Celana', 10, 70000)
+        new Produk('Celana', 10, 70000),
+        new FnB('Telur', 10, 1500, "Makanan", "20-06-2022")
     ]
 
-    const printData = () => {
-        let list = dbProduct.map((val, idx) => {
+    const printData = (data = dbProduct) => {
+        let list = data.map((val, idx) => {
             return `${idx + 1}. ${val.getInfo()}`;
         })
         return list.join('\n');
@@ -55,7 +56,7 @@
                 dbProduct.push(new FnB(name, stock, price, type, expDate));
             }
 
-            alert(`Produk baru sudah terdaftar ✅\n${printData()}`);
+            alert(`Produk baru sudah terdaftar ✅`);
         } else if (mainMenu == 2) {
             // Pilih barang yg dibeli
             let beli = parseInt(prompt(`Silahkan pilih produk :\n${printData()}`)) - 1;
@@ -95,7 +96,31 @@
             // Input qty yg dibeli
 
         } else if (mainMenu == 3) {
-            alert(`Produk tersedia :\n${printData()}`);
+            // Menentukan user mau lihat stok barang yg Non-FnB atau yang FnB
+            // 1. Menentukan pilihan data yang ingin ditampilkan ==> prompt => conditional statement
+            let filterData = prompt('Pilih jenis produk :\n1. Non FnB\n2. FnB\n0. Semua');
+            let general = [], fnb = [];
+            // 2. Melakukan filter data sesuai dengan pilihan data ==> looping ==> array baru
+            // mengakses data dari dbProduct satu per satu
+            dbProduct.forEach((val, idx) => {
+                // apakah memiliki property expDate
+                // Jika tidak punya, maka kita masukkan ke array baru
+                if (!val.expDate) {
+                    general.push(val)
+                } else {
+                    fnb.push(val)
+                }
+            })
+            if (filterData == 1) {
+                alert(`Produk tersedia :\n${printData(general)}`);
+            } else if (filterData == 2) {
+                // 3. Menampilkan data hasil filter ==> looping
+                alert(`Produk tersedia :\n${printData(fnb)}`);
+            } else if (filterData == 0) {
+                alert(`Produk tersedia :\n${printData()}`);
+            } else {
+                alert('Jenis produk tidak dikenali ⚠️')
+            }
         } else {
             alert('Pilihan anda tidak sesuai ❌')
         }
