@@ -1,0 +1,51 @@
+<!-- <!DOCTYPE html> : Untuk memberikan informasi jika kita menggunakan html 5 -->
+<!DOCTYPE html>
+<!-- <html lang="en"> : root element -->
+<html lang="en">
+<!-- <head> : untuk menyimpan informasi webpage dan import library atau styling html -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!-- <body> : untuk meletakkan isi dari tampilan html -->
+
+<body>
+    <h1>Calculator App</h1>
+    <label>Number A :</label>
+    <input id="name" type="text" />
+    <br>
+    <label>Number B :</label>
+    <input id="name" type="text" />
+    <br>
+    <button type="button" onclick="">+</button>
+    <button type="button" onclick="">-</button>
+    <button type="button" onclick="">/</button>
+    <button type="button" onclick="">x</button>
+    <h2 id="display"></h2>
+    <div>
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est nemo, laboriosam dicta labore, officiis
+            nostrum
+            quis vero quia sed commodi quo alias libero nesciunt blanditiis. Minima adipisci inventore eos atque?
+        </p>
+    </div>
+</body>
+<!-- <script> : untuk menjalankan fungsi javascript -->
+<script>
+    // document.write("Modul Fundamental")
+    // document.write("<h1>DOM Manipulation</h1>")
+    // document.write("<h2>DOM Manipulation</h2>")
+    // document.write("<h3>DOM Manipulation</h3>")
+
+    console.log(document.getElementById("name"));
+    const onBtGetValue = () => {
+        let value = document.getElementById("name").value;
+        document.getElementById("display").innerHTML = value;
+    }
+</script>
+
+</html>

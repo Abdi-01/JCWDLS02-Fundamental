@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label>Days Amount :</label>
+    <input id="days" type="text" />
+    <button type="button" onclick="onBtCheck()">Check</button>
+    <h2 id="display"></h2>
+</body>
+<script>
+    const onBtCheck = () => {
+        let jumlahHari = parseInt(document.getElementById("days").value);
+         let tahun, bulan, minggu, sisaHari;
+
+        tahun = Math.floor(jumlahHari / 365)
+        sisaHari = jumlahHari % 365
+
+        bulan = Math.floor(sisaHari / 30)
+        sisaHari = sisaHari % 30
+
+        minggu = Math.floor(sisaHari / 7)
+        sisaHari = sisaHari % 7
+
+        document.getElementById("display").innerHTML = `${tahun} Tahun, ${bulan} Bulan, ${minggu} Minggu, ${sisaHari} Hari`;
+    }
+</script>
+
+</html>
