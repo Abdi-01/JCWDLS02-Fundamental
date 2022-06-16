@@ -80,6 +80,7 @@
 </body>
 <script>
     let dbStudent = [];
+    let lastId = dbStudent.length == 0 ? 0 : dbStudent[dbStudent.length - 1].id;  // ternary operator
 
     class Student {
         constructor(_id, _name, _age, _email, _gender, _program) {
@@ -94,7 +95,7 @@
 
     const handleSubmit = () => {
         let form = document.getElementById("data-form");
-        console.log(form)
+        lastId += 1;
         let name = form.elements["fullname"].value
         let age = form.elements["age"].value
         let email = form.elements["email"].value
@@ -102,15 +103,18 @@
         let classProgram = form.elements["program"].value
 
         // Menambahkan data
-        dbStudent.push(new Student(name, age, email, gender, classProgram));
+        dbStudent.push(new Student(lastId, name, age, email, gender, classProgram));
+        console.table(dbStudent);
 
         // Menampilkan data
         printData();
         // reset value pada form input
+        console.log(document.getElementsByName("gender"))
         form.elements["fullname"].value = null;
         form.elements["age"].value = null;
         form.elements["email"].value = null;
         form.elements["gender"].value = null;
+        document.getElementsByName("gender").forEach(val => val.checked = false)
         form.elements["program"].value = null;
     }
 
@@ -123,10 +127,16 @@
                 <td>${val.email}</td>
                 <td>${val.gender}</td>
                 <td>${val.program}</td>
+                <td><button type="button" onclick="btDelete(${idx})">Delete</button></td>
             </tr>`
         })
 
         document.getElementById("list-data").innerHTML = htmlElement.join('');
+    }
+
+    const btDelete = (idx) => {
+        dbStudent.splice(idx,1);
+        printData();
     }
 </script>
 
