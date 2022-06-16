@@ -33,13 +33,32 @@
             <label>Class Program :</label>
             <select id="program">
                 <option value="null">Choose Program</option>
-                <option value="Full-stack Web" >Full-stack Web</option>
+                <option value="Full-stack Web">Full-stack Web</option>
                 <option value="Data Science">Data Science</option>
                 <option value="Digital Marketing">Digital Marketing</option>
                 <option value="UI/UX">UI/UX</option>
             </select>
         </form>
         <button type="button" onclick="handleSubmit()">Submit</button>
+        <br>
+        <br>
+        <span>Filter</span>
+        <form id="filter-form">
+            <label>Fullname :</label>
+            <input id="fullname" type="text"><br>
+            <label>Email : </label>
+            <input id="email" type="text"><br>
+            <label>Class Program :</label>
+            <select id="program">
+                <option value="null">Choose Program</option>
+                <option value="Full-stack Web">Full-stack Web</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="UI/UX">UI/UX</option>
+            </select>
+        </form>
+        <button type="button" onclick="">Search</button>
+        <br>
         <br>
         <table style="margin: auto;">
             <thead>
@@ -50,6 +69,7 @@
                     <th>Email</th>
                     <th>Gender</th>
                     <th>Class Program</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="list-data">
@@ -62,7 +82,8 @@
     let dbStudent = [];
 
     class Student {
-        constructor(_name, _age, _email, _gender, _program) {
+        constructor(_id, _name, _age, _email, _gender, _program) {
+            this.id = _id;
             this.name = _name;
             this.age = _age;
             this.email = _email;
