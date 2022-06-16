@@ -22,8 +22,9 @@
     <div style="max-width: 75vw;">
         <fieldset>
             <legend>Add Product</legend>
-            <form>
+            <form id="form-product">
                 <input type="text" placeholder="Product Name">
+                <input type="text" placeholder="Product Preview">
                 <select id="category" onchange="handleDate()">
                     <option value="null" selected>Choose Category</option>
                     <option value="General">General</option>
@@ -33,12 +34,14 @@
                 <input type="number" id="price" placeholder="Price">
                 <input type="date" id="expDate" disabled placeholder="ExpDate">
             </form>
-            <button>Submit Product</button>
+            <button type="button" onclick="handleSubmit()">Submit Product</button>
         </fieldset>
         <table>
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>SKU</th>
+                    <th>Preview</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Stock</th>
@@ -47,9 +50,12 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody id="display">
+
+            </tbody>
         </table>
     </div>
 </body>
-<script src="./index.js"></script>
+<script src="script.js"></script>
 
 </html>
