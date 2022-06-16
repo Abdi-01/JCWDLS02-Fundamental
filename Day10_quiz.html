@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Quiz</h2>
+    <h3 id="nilai"></h3>
+    <fieldset>
+        <form id="soal">
+            <h3>1. Mana yang bukan termasuk keyword variable</h3>
+            <input type="radio" name="soal1" value="salah">var</input>
+            <input type="radio" name="soal1" value="salah">const</input>
+            <input type="radio" name="soal1" value="benar">class</input>
+            <input type="radio" name="soal1" value="salah">let</input>
+            <h3>2. Mana yang bukan logical operator</h3>
+            <input type="radio" name="soal2" value="benar">==</input>
+            <input type="radio" name="soal2" value="salah">&&</input>
+            <input type="radio" name="soal2" value="salah">||</input>
+            <input type="radio" name="soal2" value="salah">!</input>
+            <h3>3. 2 + 3 = ....</h3>
+            <input type="radio" name="soal3" value="salah">2.5</input>
+            <input type="radio" name="soal3" value="salah">6</input>
+            <input type="radio" name="soal3" value="benar">5</input>
+            <input type="radio" name="soal3" value="salah">1</input>
+            <h3>4. Mana yang bukan bahasa pemrogaman</h3>
+            <input type="radio" name="soal4" value="benar">html</input>
+            <input type="radio" name="soal4" value="salah">javascript</input>
+            <input type="radio" name="soal4" value="salah">python</input>
+            <input type="radio" name="soal4" value="salah">pascal</input>
+        </form>
+        <button type="button" onclick="btCorrect()">Correct</button>
+        <button type="button" onclick="btReset()">Reset</button>
+    </fieldset>
+</body>
+<script>
+    const btCorrect = () => {
+        let nilai = 0;
+        let form = document.getElementById("soal");
+        console.log(form.elements)
+
+        let arr = [
+            form.elements["soal1"].value,
+            form.elements["soal2"].value,
+            form.elements["soal3"].value,
+            form.elements["soal4"].value,
+        ]
+
+        arr.forEach(val => {
+            if (val == "benar") {
+                nilai += 25
+            }
+        })
+
+        document.getElementById("nilai").innerHTML = `Nilai : ${nilai}`
+    }
+
+    const btReset = () => {
+        document.getElementById("nilai").innerHTML = null;
+        console.log(document.getElementsByName("soal1"));
+
+        document.getElementsByName("soal1").forEach(item => item.checked = false);
+        document.getElementsByName("soal2").forEach(item => item.checked = false);
+        document.getElementsByName("soal3").forEach(item => item.checked = false);
+        document.getElementsByName("soal4").forEach(item => item.checked = false);
+    }
+</script>
+
+</html>
