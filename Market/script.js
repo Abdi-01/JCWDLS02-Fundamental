@@ -19,11 +19,11 @@ class FnB extends Product {
 
 let dbProduct = [
     new Product("SKU-01-123456", "Topi", "https://cdn1-production-images-kly.akamaized.net/wRIF7UgcnVNjJOh-vVZwOtxTgdk=/1200x900/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2754021/original/029823500_1552891993-foto_HL_topi.jpg", "General", 20, 35000),
-    new FnB("SKU-01-654321", "Telur", "https://asset.kompas.com/crops/WYVtX9H9wYlXZDwLmMqHiw2ZJc4=/0x7:740x500/750x500/data/photo/2020/11/13/5fae4aae98da3.jpg", "FnB", 20, 35000, "2022-06-20"),
-    new FnB("SKU-01-321456", "Kentang", "https://image-cdn.medkomtek.com/AqKL90eISrf_GbhYtRAuAi9Simc=/640x640/smart/klikdokter-media-buckets/medias/2302888/original/079980300_1547360960-Makan-Kentang-Mentah-ini-Bahayanya-By-success863-Shutterstock.jpg", "FnB", 20, 35000, "2022-07-20"),
-    new Product("SKU-01-135642", "Jacket", "https://media.gq.com/photos/616f1e50af7badb1a03350cd/master/w_2000,h_1333,c_limit/Landing-Leathers-A-2-bomber-jacket.jpg", "General", 20, 35000)
+    new FnB("SKU-02-654321", "Telur", "https://asset.kompas.com/crops/WYVtX9H9wYlXZDwLmMqHiw2ZJc4=/0x7:740x500/750x500/data/photo/2020/11/13/5fae4aae98da3.jpg", "FnB", 20, 35000, "2022-06-20"),
+    new FnB("SKU-03-321456", "Kentang", "https://image-cdn.medkomtek.com/AqKL90eISrf_GbhYtRAuAi9Simc=/640x640/smart/klikdokter-media-buckets/medias/2302888/original/079980300_1547360960-Makan-Kentang-Mentah-ini-Bahayanya-By-success863-Shutterstock.jpg", "FnB", 20, 35000, "2022-07-20"),
+    new Product("SKU-04-135642", "Jacket", "https://media.gq.com/photos/616f1e50af7badb1a03350cd/master/w_2000,h_1333,c_limit/Landing-Leathers-A-2-bomber-jacket.jpg", "General", 20, 35000)
 ];
-let count = 0;
+let count = 4;
 
 const handleSubmit = () => {
     // 1. Mengambil data
@@ -73,7 +73,7 @@ const printProduct = (data = dbProduct) => {
             <td>IDR. ${val.price.toLocaleString('id')}</td>
             <td>${val.expDate ? val.expDate : "-"}</td>
             <td><button  type="button" onclick="">Edit</button>
-                <button type="button" onclick="">Delete</button>
+                <button type="button" onclick="handleDelete('${val.sku}')">Delete</button>
             </td>
         </tr>`
     }).join("");
@@ -90,6 +90,21 @@ const handleDate = () => {
 
 }
 
+const handleDelete = (sku) => {
+    // Cara 1
+    // let index = 0;
+    // console.log(sku)
+    // dbProduct.forEach((val, idx) => {
+    //     if (val.sku == sku) {
+    //         index = idx
+    //     }
+    // })
+
+    // Cara 2
+    let index = dbProduct.findIndex((val) => val.sku == sku); // output : number
+    dbProduct.splice(index, 1);
+    printProduct()
+}
 
 ///////////////// FITUR FILTER /////////////////////
 
