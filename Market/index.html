@@ -36,6 +36,21 @@
             </form>
             <button type="button" onclick="handleSubmit()">Submit Product</button>
         </fieldset>
+        <fieldset>
+            <legend>Filter Data</legend>
+            <form id="filter">
+                <input type="text" placeholder="SKU">
+                <input type="text" placeholder="Product Name">
+                <select id="category">
+                    <option value="null" selected>Choose Category</option>
+                    <option value="General">General</option>
+                    <option value="FnB">FnB</option>
+                </select>
+                <input type="number" id="price" placeholder="Price">
+                <button type="button" onclick="handleFilter()">Search</button>
+                <button type="button" onclick="handleReset()">Reset</button>
+            </form>
+        </fieldset>
         <table>
             <thead>
                 <tr>

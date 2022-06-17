@@ -17,7 +17,12 @@ class FnB extends Product {
 }
 
 
-let dbProduct = [];
+let dbProduct = [
+    new Product("SKU-01-123456", "Topi", "https://cdn1-production-images-kly.akamaized.net/wRIF7UgcnVNjJOh-vVZwOtxTgdk=/1200x900/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2754021/original/029823500_1552891993-foto_HL_topi.jpg", "General", 20, 35000),
+    new FnB("SKU-01-654321", "Telur", "https://asset.kompas.com/crops/WYVtX9H9wYlXZDwLmMqHiw2ZJc4=/0x7:740x500/750x500/data/photo/2020/11/13/5fae4aae98da3.jpg", "FnB", 20, 35000, "2022-06-20"),
+    new FnB("SKU-01-321456", "Kentang", "https://image-cdn.medkomtek.com/AqKL90eISrf_GbhYtRAuAi9Simc=/640x640/smart/klikdokter-media-buckets/medias/2302888/original/079980300_1547360960-Makan-Kentang-Mentah-ini-Bahayanya-By-success863-Shutterstock.jpg", "FnB", 20, 35000, "2022-07-20"),
+    new Product("SKU-01-135642", "Jacket", "https://media.gq.com/photos/616f1e50af7badb1a03350cd/master/w_2000,h_1333,c_limit/Landing-Leathers-A-2-bomber-jacket.jpg", "General", 20, 35000)
+];
 let count = 0;
 
 const handleSubmit = () => {
@@ -56,8 +61,8 @@ const handleSubmit = () => {
     printProduct();
 }
 
-const printProduct = () => {
-    document.getElementById("display").innerHTML = dbProduct.map((val, idx) => {
+const printProduct = (data = dbProduct) => {
+    document.getElementById("display").innerHTML = data.map((val, idx) => {
         return `<tr>
             <td>${idx + 1}</td>
             <td>${val.sku}</td>
@@ -84,3 +89,55 @@ const handleDate = () => {
     }
 
 }
+
+
+///////////////// FITUR FILTER /////////////////////
+
+const handleFilter = () => {
+    let form = document.getElementById('filter');
+    let dataFilter = {
+        sku: form.elements[0].value,
+        name: form.elements[1].value,
+        category: form.elements[2].value,
+        price: form.elements[3].value
+    }
+    console.log(dataFilter);
+    let newArr = [];
+    dbProduct.forEach((value, idx) => {
+        let dataProp = Object.keys(value); // untuk mengambil properti dari value
+        let filterProp = Object.keys(dataFilter);
+        let filterCheck = [];
+        dataProp.forEach((prop) => {
+            if (filterProp.includes(prop)) {
+                if (dataFilter[prop] && dataFilter[prop] != "null") {
+                    if (prop == "sku" || prop == "name") {
+                        filterCheck.push(value[prop].includes(dataFilter[prop]));
+                    } else {
+                        filterCheck.push(value[prop] == dataFilter[prop]);
+                    }
+                }
+            }
+        })
+        console.log(filterCheck)
+        if (!filterCheck.includes(false)) {
+            newArr.push(value)
+        }
+    })
+
+    console.log(newArr)
+
+    // Menampilkan data kedalam html
+    printProduct(newArr);
+}
+
+const handleReset = () => {
+    let form = document.getElementById('filter');
+    form.elements[0].value = null;
+    form.elements[1].value = null;
+    form.elements[2].value = null;
+    form.elements[3].value = null;
+
+    printProduct();
+}
+
+printProduct();
