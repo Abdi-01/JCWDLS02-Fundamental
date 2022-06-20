@@ -61,9 +61,24 @@ const handleSubmit = () => {
     printProduct();
 }
 
-const printProduct = (data = dbProduct) => {
+const printProduct = (data = dbProduct, sku) => {
     document.getElementById("display").innerHTML = data.map((val, idx) => {
-        return `<tr>
+        if (sku == val.sku) {
+            return `<tr>
+            <td>${idx + 1}</td>
+            <td>${val.sku}</td>
+            <td><img src="${val.img}" width="75px"></td>
+            <td><input type="text" id="new-name" value="${val.name}"/></td>
+            <td>${val.category}</td>
+            <td><input type="number" id="new-stock" value="${val.stock}"/></td>
+            <td><input type="number" id="new-price" value="${val.price}"/></td>
+            <td>${val.expDate ? val.expDate : "-"}</td>
+            <td><button  type="button" onclick="handleSave()">Save</button>
+                <button type="button" onclick="handleCancel()">Cancel</button>
+            </td>
+        </tr>`
+        } else {
+            return `<tr>
             <td>${idx + 1}</td>
             <td>${val.sku}</td>
             <td><img src="${val.img}" width="75px"></td>
@@ -72,10 +87,10 @@ const printProduct = (data = dbProduct) => {
             <td>${val.stock.toLocaleString()}</td>
             <td>IDR. ${val.price.toLocaleString('id')}</td>
             <td>${val.expDate ? val.expDate : "-"}</td>
-            <td><button  type="button" onclick="">Edit</button>
+            <td><button  type="button"  onclick="handleEdit('${val.sku}')">Edit</button>
                 <button type="button" onclick="handleDelete('${val.sku}')">Delete</button>
             </td>
-        </tr>`
+        </tr>`}
     }).join("");
 }
 
@@ -106,6 +121,17 @@ const handleDelete = (sku) => {
     printProduct()
 }
 
+const handleEdit = (sku) => {
+    printProduct(dbProduct, sku);
+}
+
+const handleCancel = () => {
+    printProduct();
+}
+
+const handleSave = () => {
+   
+}
 ///////////////// FITUR FILTER /////////////////////
 
 const handleFilter = () => {
