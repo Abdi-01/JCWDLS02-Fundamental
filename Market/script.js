@@ -21,7 +21,6 @@ class Cart extends Product {
         super(_sku, _img, _name, null, null, _price)
         this.qty = _qty;
         this.subTotal = _price * _qty;
-        this.selected = false;
     }
 }
 
@@ -33,6 +32,7 @@ let dbProduct = [
 ];
 
 let dbCart = [];
+
 let count = 4;
 
 const handleSubmit = () => {
@@ -242,6 +242,30 @@ const printKeranjang = () => {
     document.getElementById("cart-list").innerHTML = htmlElement.join("");
 }
 
-const handleBuy = () => {
-    
+const handleBuy = (sku) => {
+    // 1. Melakukan pengecekan apakah produk sudah ada didalam keranjang
+    let cartIndex = dbCart.findIndex((val) => val.sku == sku);
+    // 1a. Mengambil data produk yang akan dimasukkan kedalam keranjang
+    let productIndex = dbProduct.findIndex((val) => val.sku == sku);
+    console.log(dbProduct[productIndex]);
+    // 2. Jika produk ada didalam keranjang, maka qty bertambah
+    if (cartIndex >= 0) {
+        dbCart[cartIndex].qty += 1;
+        dbCart[cartIndex].subTotal = dbCart[cartIndex].qty * dbCart[cartIndex].price;
+        // 2a. mengurangi qty dari stock produk
+        dbProduct[productIndex].stock -= 1;
+    } else {
+        // 3. Jika tidak ada, maka menambahkan produk kedalam keranjang
+        dbCart.push(new Cart(dbProduct[productIndex].sku,
+            dbProduct[productIndex].img,
+            dbProduct[productIndex].name,
+            dbProduct[productIndex].price, 1));
+        // 3a. mengurangi qty dari stock produk
+        dbProduct[productIndex].stock -= 1;
+    }
+
+    // 4. Merender ulang list keranjang dan list produk
+    printProduct();
+    printKeranjang();
+
 }
