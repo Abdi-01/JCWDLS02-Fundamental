@@ -16,6 +16,14 @@ class FnB extends Product {
     }
 }
 
+class Cart extends Product {
+    constructor(_sku, _name, _img, _price, _qty) {
+        super(_sku, _img, _name, null, null, _price)
+        this.qty = _qty;
+        this.subTotal = _price * _qty;
+        this.selected = false;
+    }
+}
 
 let dbProduct = [
     new Product("SKU-01-123456", "Topi", "https://cdn1-production-images-kly.akamaized.net/wRIF7UgcnVNjJOh-vVZwOtxTgdk=/1200x900/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2754021/original/029823500_1552891993-foto_HL_topi.jpg", "General", 20, 35000),
@@ -23,6 +31,8 @@ let dbProduct = [
     new FnB("SKU-03-321456", "Kentang", "https://image-cdn.medkomtek.com/AqKL90eISrf_GbhYtRAuAi9Simc=/640x640/smart/klikdokter-media-buckets/medias/2302888/original/079980300_1547360960-Makan-Kentang-Mentah-ini-Bahayanya-By-success863-Shutterstock.jpg", "FnB", 20, 35000, "2022-07-20"),
     new Product("SKU-04-135642", "Jacket", "https://media.gq.com/photos/616f1e50af7badb1a03350cd/master/w_2000,h_1333,c_limit/Landing-Leathers-A-2-bomber-jacket.jpg", "General", 20, 35000)
 ];
+
+let dbCart = [];
 let count = 4;
 
 const handleSubmit = () => {
@@ -73,7 +83,7 @@ const printProduct = (data = dbProduct, sku) => {
             <td><input type="number" id="new-stock" value="${val.stock}"/></td>
             <td><input type="number" id="new-price" value="${val.price}"/></td>
             <td>${val.expDate ? val.expDate : "-"}</td>
-            <td><button  type="button" onclick="handleSave()">Save</button>
+            <td><button  type="button" onclick="handleSave('${val.sku}')">Save</button>
                 <button type="button" onclick="handleCancel()">Cancel</button>
             </td>
         </tr>`
@@ -89,6 +99,7 @@ const printProduct = (data = dbProduct, sku) => {
             <td>${val.expDate ? val.expDate : "-"}</td>
             <td><button  type="button"  onclick="handleEdit('${val.sku}')">Edit</button>
                 <button type="button" onclick="handleDelete('${val.sku}')">Delete</button>
+                <button type="button" onclick="handleBuy('${val.sku}')">Beli</button>
             </td>
         </tr>`}
     }).join("");
@@ -129,8 +140,28 @@ const handleCancel = () => {
     printProduct();
 }
 
-const handleSave = () => {
-   
+const handleSave = (sku) => {
+    // 1. Mencarai alamat index dari data yang akan diperbarui
+    let idx = dbProduct.findIndex((val) => val.sku == sku); // 
+
+    // 2. Mengambil value dari form input
+    let name = document.getElementById("new-name").value;
+    let stock = parseInt(document.getElementById("new-stock").value);
+    let price = parseInt(document.getElementById("new-price").value);
+
+    // 3. Menyimpan data kedalam dbProduct
+    // Reassign
+    // dbProduct[idx].name = name;
+    // dbProduct[idx].stock = stock;
+    // dbProduct[idx].price = price;
+
+    // Concatination dan spread operator
+    console.log("before", dbProduct[idx])
+    dbProduct[idx] = { ...dbProduct[idx], name, stock, price }
+    console.log("after", dbProduct[idx])
+
+    // 4. Menampilkan data ulang
+    printProduct();
 }
 ///////////////// FITUR FILTER /////////////////////
 
@@ -182,3 +213,35 @@ const handleReset = () => {
 }
 
 printProduct();
+
+////////////////////////// Buy /////////////////////////////
+const printKeranjang = () => {
+    console.log(dbCart)
+    let htmlElement = dbCart.map((val, index) => {
+        // total += val.subTotal;
+        return `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${val.sku}</td>
+            <td><img src="${val.img}" width="75px"></td>
+            <td>${val.name}</td>
+            <td>IDR. ${val.price.toLocaleString()}</td>
+            <td>
+            <button type="button" onclick="handleDecrement('${val.sku}')">-</button>
+            ${val.qty.toLocaleString()} 
+            <button type="button" onclick="handleIncrement('${val.sku}')">+</button>
+            </td>
+            <td>IDR. ${val.subTotal.toLocaleString()}</td>
+            <td>
+            <button type="button" onclick="handleDeleteCart('${val.sku}')">Delete</button>
+            </td>
+        </tr>
+        `
+    })
+
+    document.getElementById("cart-list").innerHTML = htmlElement.join("");
+}
+
+const handleBuy = () => {
+    
+}
