@@ -227,13 +227,13 @@ const printKeranjang = () => {
             <td>${val.name}</td>
             <td>IDR. ${val.price.toLocaleString()}</td>
             <td>
-            <button type="button" onclick="handleDecrement('${val.sku}')">-</button>
+            <button type="button" onclick="handleDec('${val.sku}')">-</button>
             ${val.qty.toLocaleString()} 
-            <button type="button" onclick="handleIncrement('${val.sku}')">+</button>
+            <button type="button" onclick="handleInc('${val.sku}')">+</button>
             </td>
             <td>IDR. ${val.subTotal.toLocaleString()}</td>
             <td>
-            <button type="button" onclick="handleDeleteCart('${val.sku}')">Delete</button>
+            <button type="button" onclick="handleCartDelete('${val.sku}')">Delete</button>
             </td>
         </tr>
         `
@@ -269,3 +269,49 @@ const handleBuy = (sku) => {
     printKeranjang();
 
 }
+
+const handleCartDelete = (sku) => {
+    // 1. Cari index dari product yang kita pilih didalam keranjang
+    let cartIndex = dbCart.findIndex(val => val.sku == sku);
+    // 2. Cari index dari data product asalnya
+    let productIndex = dbProduct.findIndex(val => val.sku == sku);
+
+    // 3. Mengembalikan stock produk
+    dbProduct[productIndex].stock += dbCart[cartIndex].qty;
+
+    // 4. Hapus data pada keranjang
+    dbCart.splice(cartIndex, 1);
+
+    // 5. Refresh ulang tampilan
+    printProduct();
+    printKeranjang();
+}
+
+const handleDec = (sku) => {
+    // 1. Cari index dari product yang kita pilih didalam keranjang
+    let cartIndex = dbCart.findIndex(val => val.sku == sku);
+    // 2. Cari index dari data product asalnya
+    let productIndex = dbProduct.findIndex(val => val.sku == sku);
+
+    dbProduct[productIndex].stock += 1;
+    dbCart[cartIndex].qty -= 1;
+    dbCart[cartIndex].subTotal = dbCart[cartIndex].qty * dbCart[cartIndex].price;
+
+    printProduct();
+    printKeranjang();
+}
+
+const handleInc = (sku) => {
+    // 1. Cari index dari product yang kita pilih didalam keranjang
+    let cartIndex = dbCart.findIndex(val => val.sku == sku);
+    // 2. Cari index dari data product asalnya
+    let productIndex = dbProduct.findIndex(val => val.sku == sku);
+
+    dbProduct[productIndex].stock -= 1;
+    dbCart[cartIndex].qty += 1;
+    dbCart[cartIndex].subTotal = dbCart[cartIndex].qty * dbCart[cartIndex].price;
+
+    printProduct();
+    printKeranjang();
+}
+
