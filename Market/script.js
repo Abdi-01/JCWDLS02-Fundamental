@@ -248,6 +248,7 @@ const handleCheck = (sku) => {
 }
 
 const handleClearCart = () => {
+    let selectedSKU = [];
     // 1. Mengakses setiap data product cart satu persatu-satu --> looping --> forEach
     dbCart.forEach((val, idx) => {
         // 2. Mengetahui apakah product tersebut dipilih --> getElementById --> check-sku
@@ -259,10 +260,16 @@ const handleClearCart = () => {
             let dataIdx = dbProduct.findIndex((data) => data.sku == val.sku);
             dbProduct[dataIdx].stock += val.qty;
             // 5. kita hapus data product pada cart berdasarkan index yang kita dapatkan sebelumnya --> splice
-            dbCart.splice(idx, 1);
+            selectedIdx.push(val.sku);
         }
         // 6. Jika checkbox bernilai false, maka product akan tetap ada
     })
+
+    selectedSKU.forEach((val, idx) => {
+        let cartIdx = dbCart.findIndex(data => data.sku == val);
+        dbCart.splice(cartIdx, 1);
+    })
+
     // 7. Refresh tampilan product dan juga keranjang
     printProduct();
     printKeranjang()
