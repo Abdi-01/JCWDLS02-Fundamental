@@ -19,8 +19,10 @@
 </head>
 
 <body>
-    <div style="max-width: 75vw;">
+    <div   style="max-width: 75vw;">
         <fieldset>
+        </fieldset>
+        <fieldset id="product-manage">
             <legend>Add Product</legend>
             <form id="form-product">
                 <input type="text" placeholder="Product Name">
@@ -71,11 +73,11 @@
         </table>
         <fieldset>
             <legend>Cart List</legend>
-            <button type="button">Clear Cart</button>
+            <button type="button" onclick="handleClearCart()">Delete Selected</button>
             <table>
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th>Select</th>
                         <th>SKU</th>
                         <th>Preview</th>
                         <th>Name</th>

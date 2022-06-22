@@ -21,6 +21,7 @@ class Cart extends Product {
         super(_sku, _img, _name, null, null, _price)
         this.qty = _qty;
         this.subTotal = _price * _qty;
+        this.selected = false;
     }
 }
 
@@ -221,7 +222,7 @@ const printKeranjang = () => {
         // total += val.subTotal;
         return `
         <tr>
-            <td>${index + 1}</td>
+            <td><input type='checkbox' id="check-${val.sku}" onclick="handleCheck('${val.sku}')"/></td>
             <td>${val.sku}</td>
             <td><img src="${val.img}" width="75px"></td>
             <td>${val.name}</td>
@@ -240,6 +241,32 @@ const printKeranjang = () => {
     })
 
     document.getElementById("cart-list").innerHTML = htmlElement.join("");
+}
+
+const handleCheck = (sku) => {
+    alert(document.getElementById(`check-${sku}`).checked);
+}
+
+const handleClearCart = () => {
+    // 1. Mengakses setiap data product cart satu persatu-satu --> looping --> forEach
+    dbCart.forEach((val, idx) => {
+        // 2. Mengetahui apakah product tersebut dipilih --> getElementById --> check-sku
+        console.log(val.sku, document.getElementById(`check-${val.sku}`).checked)
+        // 3. Jika checkbox dari product bernilai true, kita ambil index datanya --> if(condition)
+        if (document.getElementById(`check-${val.sku}`).checked) {
+            // 4. kita ambil qty data product berdasarkan index, kemudian kita reassign ke stock product --> +=
+            // 4a. index dari product asalnya
+            let dataIdx = dbProduct.findIndex((data) => data.sku == val.sku);
+            dbProduct[dataIdx].stock += val.qty;
+            // 5. kita hapus data product pada cart berdasarkan index yang kita dapatkan sebelumnya --> splice
+            dbCart.splice(idx, 1);
+        }
+        // 6. Jika checkbox bernilai false, maka product akan tetap ada
+    })
+    // 7. Refresh tampilan product dan juga keranjang
+    printProduct();
+    printKeranjang()
+
 }
 
 const handleBuy = (sku) => {
