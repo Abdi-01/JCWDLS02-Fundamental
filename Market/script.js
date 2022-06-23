@@ -36,6 +36,12 @@ let dbCart = [];
 
 let count = 4;
 
+let userLogin = '';
+
+const handleCustomer = () => {
+    userLogin = document.getElementById('inUsername').value;
+}
+
 const handleSubmit = () => {
     // 1. Mengambil data
     count += 1;
@@ -260,7 +266,7 @@ const handleClearCart = () => {
             let dataIdx = dbProduct.findIndex((data) => data.sku == val.sku);
             dbProduct[dataIdx].stock += val.qty;
             // 5. kita hapus data product pada cart berdasarkan index yang kita dapatkan sebelumnya --> splice
-            selectedIdx.push(val.sku);
+            selectedSKU.push(val.sku);
         }
         // 6. Jika checkbox bernilai false, maka product akan tetap ada
     })
@@ -276,31 +282,70 @@ const handleClearCart = () => {
 
 }
 
-const handleBuy = (sku) => {
-    // 1. Melakukan pengecekan apakah produk sudah ada didalam keranjang
-    let cartIndex = dbCart.findIndex((val) => val.sku == sku);
-    // 1a. Mengambil data produk yang akan dimasukkan kedalam keranjang
-    let productIndex = dbProduct.findIndex((val) => val.sku == sku);
-    console.log(dbProduct[productIndex]);
-    // 2. Jika produk ada didalam keranjang, maka qty bertambah
-    if (cartIndex >= 0) {
-        dbCart[cartIndex].qty += 1;
-        dbCart[cartIndex].subTotal = dbCart[cartIndex].qty * dbCart[cartIndex].price;
-        // 2a. mengurangi qty dari stock produk
-        dbProduct[productIndex].stock -= 1;
-    } else {
-        // 3. Jika tidak ada, maka menambahkan produk kedalam keranjang
-        dbCart.push(new Cart(dbProduct[productIndex].sku,
-            dbProduct[productIndex].img,
-            dbProduct[productIndex].name,
-            dbProduct[productIndex].price, 1));
-        // 3a. mengurangi qty dari stock produk
-        dbProduct[productIndex].stock -= 1;
-    }
+let dbCheckout = [];
+let totalPayment = 0;
 
-    // 4. Merender ulang list keranjang dan list produk
+const handleCheckout = () => {
+    dbCart.forEach((val, idx) => {
+        if (document.getElementById(`check-${val.sku}`).checked) {
+            dbCheckout.push(val);
+        }
+    })
+
+    dbCheckout.forEach((val, idx) => {
+        let cartIdx = dbCart.findIndex(value => value.sku == val.sku);
+        dbCart.splice(cartIdx, 1);
+        //////////////////
+        // menghitung totalPayment
+        totalPayment += val.subTotal;
+    })
+
+    document.getElementById("total").innerHTML = `IDR. ${totalPayment.toLocaleString("id")},-`;
     printProduct();
     printKeranjang();
+    printCheckout();
+}
+
+const printCheckout = () => {
+    document.getElementById("checkout-list").innerHTML = dbCheckout.map((val, idx) => {
+        return `
+        <tr>
+            <td>${val.sku}</td>
+            <td>IDR. ${val.subTotal.toLocaleString("id")}</td>
+        </tr>
+        `
+    }).join("");
+}
+
+const handleBuy = (sku) => {
+    if (userLogin) {
+        // 1. Melakukan pengecekan apakah produk sudah ada didalam keranjang
+        let cartIndex = dbCart.findIndex((val) => val.sku == sku);
+        // 1a. Mengambil data produk yang akan dimasukkan kedalam keranjang
+        let productIndex = dbProduct.findIndex((val) => val.sku == sku);
+        console.log(dbProduct[productIndex]);
+        // 2. Jika produk ada didalam keranjang, maka qty bertambah
+        if (cartIndex >= 0) {
+            dbCart[cartIndex].qty += 1;
+            dbCart[cartIndex].subTotal = dbCart[cartIndex].qty * dbCart[cartIndex].price;
+            // 2a. mengurangi qty dari stock produk
+            dbProduct[productIndex].stock -= 1;
+        } else {
+            // 3. Jika tidak ada, maka menambahkan produk kedalam keranjang
+            dbCart.push(new Cart(dbProduct[productIndex].sku,
+                dbProduct[productIndex].img,
+                dbProduct[productIndex].name,
+                dbProduct[productIndex].price, 1));
+            // 3a. mengurangi qty dari stock produk
+            dbProduct[productIndex].stock -= 1;
+        }
+
+        // 4. Merender ulang list keranjang dan list produk
+        printProduct();
+        printKeranjang();
+    } else {
+        alert('Silahkan Login Terlebih Dahulu ⚠️')
+    }
 
 }
 

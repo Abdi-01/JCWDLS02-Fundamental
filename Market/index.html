@@ -19,9 +19,7 @@
 </head>
 
 <body>
-    <div   style="max-width: 75vw;">
-        <fieldset>
-        </fieldset>
+    <div style="max-width: 75vw;">
         <fieldset id="product-manage">
             <legend>Add Product</legend>
             <form id="form-product">
@@ -37,6 +35,11 @@
                 <input type="date" id="expDate" disabled placeholder="ExpDate">
             </form>
             <button type="button" onclick="handleSubmit()">Submit Product</button>
+        </fieldset>
+        <fieldset>
+            <legend>Customer</legend>
+            <input type="text" id="inUsername" />
+            <button type="button" onclick="handleCustomer()">Login</button>
         </fieldset>
         <fieldset>
             <legend>Filter Data</legend>
@@ -74,6 +77,7 @@
         <fieldset>
             <legend>Cart List</legend>
             <button type="button" onclick="handleClearCart()">Delete Selected</button>
+            <button type="button" onclick="handleCheckout()">Checkout Selected</button>
             <table>
                 <thead>
                     <tr>
@@ -92,6 +96,60 @@
                 </tbody>
             </table>
 
+        </fieldset>
+        <fieldset>
+            <legend>Checkout</legend>
+            <table>
+                <thead>
+                    <tr>
+                        <td>SKU</td>
+                        <td>Sub.Total</td>
+                    </tr>
+                </thead>
+                <tbody id="checkout-list">
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <h4>Total Pembayaran</h4>
+                        </td>
+                        <td>
+                            <h4 id="total">Rp. 0,-</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Uang Pembayaran</h4>
+                        </td>
+                        <td>
+                            <input type="number" id="payment" />
+                            <button type="button" onclick="handlePay()">Payment</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6 id="message"></h6>
+        </fieldset>
+        <fieldset>
+            <legend>Report Transaction</legend>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Total Transaction</th>
+                    </tr>
+                </thead>
+                <tbody id="report">
+
+                </tbody>
+            </table>
+
+            <h3>Omset</h3>
+            <h3 id="omset"></h3>
         </fieldset>
     </div>
 </body>
