@@ -250,7 +250,7 @@ const printKeranjang = () => {
 }
 
 const handleCheck = (sku) => {
-    alert(document.getElementById(`check-${sku}`).checked);
+    // alert(document.getElementById(`check-${sku}`).checked);
 }
 
 const handleClearCart = () => {
@@ -394,3 +394,41 @@ const handleInc = (sku) => {
     printKeranjang();
 }
 
+let dbTransaction = [];
+
+const handlePayment = () => {
+    let payment = parseInt(document.getElementById('payment').value);
+
+    if (payment >= totalPayment) {
+        alert(`Pembayaran berhasil ✅, kembalian anda IDR. ${payment - totalPayment}`)
+
+        dbTransaction.push({
+            date: `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+            username: userLogin,
+            total: totalPayment
+        })
+
+        totalPayment = 0;
+        dbCheckout = [];
+        document.getElementById('inUsername').value = null;
+        document.getElementById('payment').value = null;
+        document.getElementById("total").innerHTML = `IDR. ${totalPayment.toLocaleString("id")},-`;
+        printCheckout();
+        printReport();
+    } else {
+        alert('Maaf uang pembayaran anda kurang ⚠️')
+    }
+}
+
+const printReport=()=>{
+    document.getElementById("report").innerHTML = dbTransaction.map((val,idx)=>{
+        return `
+        <tr>
+            <td>${idx+1}</td>
+            <td>${val.date}</td>
+            <td>${val.username}</td>
+            <td>${val.total}</td>
+        </tr>
+        `
+    }).join("")
+}
